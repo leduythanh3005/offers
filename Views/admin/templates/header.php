@@ -1,39 +1,31 @@
+<?php
+	$helper = new Data;
+?>
 <!DOCTYPE html>
-<!--
- // WEBSITE: https://themefisher.com
- // TWITTER: https://twitter.com/themefisher
- // FACEBOOK: https://www.facebook.com/themefisher
- // GITHUB: https://github.com/themefisher/
--->
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mono - Responsive Admin & Dashboard Template</title>
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css?family=Karla:400,700|Roboto" rel="stylesheet">
-  <link href="./Views/admin/web/plugins/material/css/materialdesignicons.min.css" rel="stylesheet" />
-  <link href="./Views/admin/web/plugins/simplebar/simplebar.css" rel="stylesheet" />
-  <!-- PLUGINS CSS STYLE -->
-  <link href="./Views/admin/web/plugins/nprogress/nprogress.css" rel="stylesheet" />
-  <link href="./Views/admin/web/plugins/DataTables/DataTables-1.10.18/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link href="./Views/admin/web/plugins/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
-  <link href="./Views/admin/web/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-  <link href="./Views/admin/web/plugins/toaster/toastr.min.css" rel="stylesheet" />
-  <!-- MONO CSS -->
-  <link id="main-css-href" rel="stylesheet" href="./Views/admin/web/css/style.css" />
-  <!-- FAVICON -->
-  <link href="./Views/admin/web/images/favicon.png" rel="shortcut icon" />
-  <!--
-    HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
-  -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-  <script src="./Views/admin/web/plugins/nprogress/nprogress.js"></script>
-  <script src="./Views/admin/web/plugins/jquery/jquery.min.js"></script>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title><?= $helper->settingTitle() ?></title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="./Views/admin/web/assets/img/icon.ico" type="image/x-icon"/>
+
+	<!-- Fonts and icons -->
+	<script src="./Views/admin/web/assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['./Views/admin/web/assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="./Views/admin/web/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./Views/admin/web/assets/css/atlantis.min.css">
+	<link rel="stylesheet" href="./Views/admin/web/assets/css/atlantis.css">
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="./Views/admin/web/assets/css/demo.css">
 </head>

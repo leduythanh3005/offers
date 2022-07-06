@@ -1,10 +1,12 @@
 <?php
-class BaseModel extends Db {
+class BaseModel extends Db 
+{
 
     const TABLE_NETWORKS    = 'table_networks';
     const TABLE_OFFERS      = 'table_offers';
     const TABLE_USERS       = 'table_users';
     const TABLE_AMOUNT      = 'table_amount';
+    const TABLE_SETTING     = 'table_setting';
 
     public $connect;
 
@@ -12,7 +14,8 @@ class BaseModel extends Db {
     {
         $this->connect = $this->connectDb();
     }
-    public function getValue(array $array, $table){
+    public function getValue(array $array, $table)
+    {
         $flattened = $array;
         array_walk($flattened, function(&$value, $key) {
             $value = "{$value}";
@@ -29,7 +32,8 @@ class BaseModel extends Db {
         return false;
     }
     
-    public function setValue(array $array,string $table){
+    public function setValue(array $array,string $table)
+    {
         $result = false;
         $ValuesArr = $array;
         array_walk($ValuesArr, function(&$value, $key) {
@@ -48,7 +52,8 @@ class BaseModel extends Db {
         return $result;
     }
 
-    public function updateValue(array $array ,string $table,array $where){
+    public function updateValue(array $array ,string $table,array $where)
+    {
         $result = false;
         $whereArr = $where;
         array_walk($whereArr, function(&$value, $key) {
@@ -67,26 +72,44 @@ class BaseModel extends Db {
         return $result;
     }
 
-    public function delValue(array $array,string $table){
+    public function delValue(array $array,string $table)
+    {
         $result = false;
-        foreach($array as $key => $value){
-            $sql = "DELETE FROM $table WHERE $key='$value';";
-            if(mysqli_query($this->connect, $sql)){
-                $result = true;
-            };
+        try {
+            foreach($array as $key => $value){
+                $sql = "DELETE FROM $table WHERE $key='$value';";
+                if(mysqli_query($this->connect, $sql)){
+                    $result = true;
+                };
+            }
+        } catch (\Throwable $th) {
+            throw $th;
         }
         return $result;
     }
 
-    public function getAValue(string $str,string $table, array $where){
-        foreach($where as $key => $value){
-            $sql = "SELECT $str FROM $table WHERE $key = '$value'";
-            $check = mysqli_query($this->connect, $sql);
-            if ($check->num_rows > 0) {
-                $result = $check->fetch_assoc();
-                return $result[$str];
+    public function getAValue(string $str,string $table, array $where)
+    {
+        try {
+            foreach($where as $key => $value){
+                $sql = "SELECT $str FROM $table WHERE $key = '$value'";
+                $check = mysqli_query($this->connect, $sql);
+                if ($check->num_rows > 0) {
+                    $result = $check->fetch_assoc();
+                    return $result[$str];
+                }
             }
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        return false;
+    }
+
+    public function settingTheme(string $str)
+    {
+        $tableSetting = self::TABLE_SETTING;
+        $where = [
+            'id' => 1
+        ];
+        return $this->getAValue($str, $tableSetting, $where);
     }
 }

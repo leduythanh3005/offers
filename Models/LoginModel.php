@@ -13,10 +13,12 @@ class LoginModel extends BaseModel{
     public function submit(string $username,string $password)
     {
         $table = self::TABLE_USERS;
-        $sql = "SELECT * FROM $table";
-        if (mysqli_query($this->connect, $sql)) {
-            return $this->checkLogin($username, $password ,$table);
-        }else {
+        try {
+            $sql = "SELECT * FROM $table";
+            if (mysqli_query($this->connect, $sql)) {
+                return $this->checkLogin($username, $password ,$table);
+            }
+        } catch (\Throwable $th) {
             $this->createTableUser($table);
             $table_amount = self::TABLE_AMOUNT;
             $this->createTableAmount($table_amount);
@@ -55,7 +57,6 @@ class LoginModel extends BaseModel{
                                         PRIMARY KEY(id)
                                     )";
         mysqli_query($this->connect, $sql);
-        echo "asdasd";
     }
 
     private function createTableAmount(string $table)
@@ -65,6 +66,18 @@ class LoginModel extends BaseModel{
                                         daily_earnings float NOT NULL,
                                         weekly_earnings float NOT NULL,
                                         monthly_earnings float NOT NULL,
+                                        PRIMARY KEY(id)
+                                    )";
+        mysqli_query($this->connect, $sql);
+    }
+
+    private function createTableSetting(string $table)
+    {
+        $sql = "CREATE TABLE $table (   id int NOT NULL AUTO_INCREMENT,
+                                        site_logo varchar(255),
+                                        site_favicon varchar(255),
+                                        site_title varchar(255),
+                                        site_theme varchar(255),
                                         PRIMARY KEY(id)
                                     )";
         mysqli_query($this->connect, $sql);

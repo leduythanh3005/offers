@@ -1,757 +1,599 @@
-<?php
-if ($_SESSION['username'] != 'admin') {
-  header("Location: ./?controller=login&action=index");
-}
-?>
-<body class="navbar-fixed sidebar-fixed" id="body">
-  <script>
-    NProgress.configure({
-      showSpinner: false
-    });
-    NProgress.start();
-  </script>
-  <div id="toaster"></div>
-  <div class="wrapper">
-    <?php require_once "./Views/admin/templates/sidebar.php" ?>
-    <div class="page-wrapper">
-    <?php require_once "./Views/admin/templates/headerNav.php" ?>
-      <div class=content-wrapper>
-        <div class=content>
-          <div class=row>
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class=card-header>
-                  <h2>$18,699</h2>
-                  <div class=dropdown>
-                    <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                  </div>
-                  <div class=sub-title> <span class=mr-1>Sales of this year</span> | <span class=mx-1>45%</span> <i class="mdi mdi-arrow-up-bold text-success"></i> </div>
-                </div>
-                <div class=card-body>
-                  <div class=chart-wrapper>
-                    <div>
-                      <div id=spline-area-1></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class=card-header>
-                  <h2>$14,500</h2>
-                  <div class=dropdown>
-                    <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                  </div>
-                  <div class=sub-title> <span class=mr-1>Expense of this year</span> | <span class=mx-1>50%</span> <i class="mdi mdi-arrow-down-bold text-danger"></i> </div>
-                </div>
-                <div class=card-body>
-                  <div class=chart-wrapper>
-                    <div>
-                      <div id=spline-area-2></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class=card-header>
-                  <h2>$4199</h2>
-                  <div class=dropdown>
-                    <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                  </div>
-                  <div class=sub-title> <span class=mr-1>Profit of this year</span> | <span class=mx-1>20%</span> <i class="mdi mdi-arrow-down-bold text-danger"></i> </div>
-                </div>
-                <div class=card-body>
-                  <div class=chart-wrapper>
-                    <div>
-                      <div id=spline-area-3></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6">
-              <div class="card card-default card-mini">
-                <div class=card-header>
-                  <h2>$20,199</h2>
-                  <div class=dropdown>
-                    <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                  </div>
-                  <div class=sub-title> <span class=mr-1>Revenue of this year</span> | <span class=mx-1>35%</span> <i class="mdi mdi-arrow-up-bold text-success"></i> </div>
-                </div>
-                <div class=card-body>
-                  <div class=chart-wrapper>
-                    <div>
-                      <div id=spline-area-4></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=row>
-            <div class=col-xl-8>
-              <div class="card card-default">
-                <div class=card-header>
-                  <h2>Income And Expenses</h2>
-                  <div class=dropdown>
-                    <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false data-display=static> </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                  </div>
-                </div>
-                <div class=card-body>
-                  <div class=chart-wrapper>
-                    <div id=mixed-chart-1></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class=col-xl-4>
-              <div class="card card-default">
-                <div class=card-header>
-                  <h2>Current Users</h2> <span>Realtime</span>
-                </div>
-                <div class=card-body>
-                  <div id=barchartlg2></div>
-                </div>
-                <div class="card-footer bg-white py-4"> <a href="#" class=text-uppercase>Current Users Overview</a> </div>
-              </div>
-            </div>
-          </div>
-          <div class=row>
-            <div class=col-12>
-              <div class="card card-default">
-                <div class=card-header>
-                  <h2>Products Inventory</h2>
-                  <div class=dropdown> <a class=dropdown-toggle href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> Yearly Chart </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                  </div>
-                </div>
-                <div class=card-body>
-                  <table id=productsTable class="table table-hover table-product" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Product Name</th>
-                        <th>ID</th>
-                        <th>Qty</th>
-                        <th>Variants</th>
-                        <th>Committed</th>
-                        <th>Daily Sale</th>
-                        <th>Sold</th>
-                        <th>In Stock</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-01.jpg" alt="Product Image"> </td>
-                        <td>Coach Swagger</td>
-                        <td>24541</td>
-                        <td>27</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>
-                          <div id=tbl-chart-01></div>
-                        </td>
-                        <td>4</td>
-                        <td>18</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-02.jpg" alt="Product Image"> </td>
-                        <td>Toddler Shoes, Gucci Watch</td>
-                        <td>24542</td>
-                        <td>18</td>
-                        <td>7</td>
-                        <td>5</td>
-                        <td>
-                          <div id=tbl-chart-02></div>
-                        </td>
-                        <td>1</td>
-                        <td>14</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-03.jpg" alt="Product Image"> </td>
-                        <td>Hat Black Suits</td>
-                        <td>24543</td>
-                        <td>20</td>
-                        <td>3</td>
-                        <td>7</td>
-                        <td>
-                          <div id=tbl-chart-03></div>
-                        </td>
-                        <td>6</td>
-                        <td>26</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-04.jpg" alt="Product Image"> </td>
-                        <td>Backpack Gents</td>
-                        <td>24544</td>
-                        <td>37</td>
-                        <td>8</td>
-                        <td>3</td>
-                        <td>
-                          <div id=tbl-chart-04></div>
-                        </td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-05.jpg" alt="Product Image"> </td>
-                        <td>Speed 500 Ignite</td>
-                        <td>24545</td>
-                        <td>8</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>
-                          <div id=tbl-chart-05></div>
-                        </td>
-                        <td>8</td>
-                        <td>42</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-06.jpg" alt="Product Image"> </td>
-                        <td>Olay</td>
-                        <td>24546</td>
-                        <td>19</td>
-                        <td>6</td>
-                        <td>6</td>
-                        <td>
-                          <div id=tbl-chart-06></div>
-                        </td>
-                        <td>79</td>
-                        <td>12</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-07.jpg" alt="Product Image"> </td>
-                        <td>Ledger Nano X</td>
-                        <td>24547</td>
-                        <td>61</td>
-                        <td>46</td>
-                        <td>18</td>
-                        <td>
-                          <div id=tbl-chart-07></div>
-                        </td>
-                        <td>76</td>
-                        <td>36</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-08.jpg" alt="Product Image"> </td>
-                        <td>Surface Laptop 2</td>
-                        <td>24548</td>
-                        <td>33</td>
-                        <td>56</td>
-                        <td>89</td>
-                        <td>
-                          <div id=tbl-chart-08></div>
-                        </td>
-                        <td>38</td>
-                        <td>5</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-09.jpg" alt="Product Image"> </td>
-                        <td>TIGI Bed Head Superstar Queen</td>
-                        <td>24549</td>
-                        <td>3</td>
-                        <td>9</td>
-                        <td>15</td>
-                        <td>
-                          <div id=tbl-chart-09></div>
-                        </td>
-                        <td>6</td>
-                        <td>46</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-10.jpg" alt="Product Image"> </td>
-                        <td>Wattbike Atom</td>
-                        <td>24550</td>
-                        <td>61</td>
-                        <td>56</td>
-                        <td>68</td>
-                        <td>
-                          <div id=tbl-chart-10></div>
-                        </td>
-                        <td>3</td>
-                        <td>19</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-11.jpg" alt="Product Image"> </td>
-                        <td>Smart Watch</td>
-                        <td>24551</td>
-                        <td>19</td>
-                        <td>76</td>
-                        <td>38</td>
-                        <td>
-                          <div id=tbl-chart-11></div>
-                        </td>
-                        <td>3</td>
-                        <td>17</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-12.jpg" alt="Product Image"> </td>
-                        <td>Magic Bullet Blender</td>
-                        <td>24552</td>
-                        <td>12</td>
-                        <td>30</td>
-                        <td>14</td>
-                        <td>
-                          <div id=tbl-chart-12></div>
-                        </td>
-                        <td>26</td>
-                        <td>9</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-13.jpg" alt="Product Image"> </td>
-                        <td>Kanana rucksack</td>
-                        <td>24553</td>
-                        <td>14</td>
-                        <td>65</td>
-                        <td>39</td>
-                        <td>
-                          <div id=tbl-chart-13></div>
-                        </td>
-                        <td>9</td>
-                        <td>55</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-14.jpg" alt="Product Image"> </td>
-                        <td>Copic Opaque White</td>
-                        <td>24554</td>
-                        <td>43</td>
-                        <td>29</td>
-                        <td>75</td>
-                        <td>
-                          <div id=tbl-chart-14></div>
-                        </td>
-                        <td>7</td>
-                        <td>15</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class=py-0> <img src="./Views/admin/web/images/products/products-xs-15.jpg" alt="Product Image"> </td>
-                        <td>Headphones</td>
-                        <td>24555</td>
-                        <td>17</td>
-                        <td>6</td>
-                        <td>7</td>
-                        <td>
-                          <div id=tbl-chart-15></div>
-                        </td>
-                        <td>6</td>
-                        <td>98</td>
-                        <td>
-                          <div class=dropdown>
-                            <a class="dropdown-toggle icon-burger-mini" href="#" role=button id=dropdownMenuLink data-toggle=dropdown aria-haspopup=true aria-expanded=false> </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuLink> <a class=dropdown-item href="#">Action</a> <a class=dropdown-item href="#">Another action</a> <a class=dropdown-item href="#">Something else here</a> </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=row>
-            <div class=col-xl-4>
-              <div class="card card-default">
-                <div class=card-header>
-                  <h2>Top Customers</h2>
-                </div>
-                <div class=card-body>
-                  <table class="table table-borderless table-thead-border">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th class=text-right>Income</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="text-dark font-weight-bold">Gunter Reich</td>
-                        <td class=text-right>$2,560</td>
-                      </tr>
-                      <tr>
-                        <td class="text-dark font-weight-bold">Anke Kirsch</td>
-                        <td class=text-right>$1,720</td>
-                      </tr>
-                      <tr>
-                        <td class="text-dark font-weight-bold">Karolina Beer</td>
-                        <td class=text-right>$1,230</td>
-                      </tr>
-                      <tr>
-                        <td class="text-dark font-weight-bold">Lucia Christ</td>
-                        <td class=text-right>$875</td>
-                      </tr>
-                    </tbody>
-                    <tfoot class=border-top>
-                      <tr>
-                        <td><a href="#" class=text-uppercase>See All</a>
-                        </td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class=col-xl-8>
-              <div class="card card-default">
-                <div class=card-header>
-                  <h2>Sales by Country</h2>
-                  <div id=country-sales-range class=date-range> <i class="mdi mdi-calendar"></i>&nbsp; <span class=date-holder></span> <i class="mdi mdi-menu-down"></i> </div>
-                </div>
-                <div class="card-body py-0">
-                  <div class="row pb-4">
-                    <div class="col-lg-7 border-right-lg">
-                      <div class=vec-map-wrapper>
-                        <div id=home-world style="height: 100%; width: 100%;"></div>
-                      </div>
-                    </div>
-                    <div class=col-lg-5>
-                      <div class=chart-wrapper>
-                        <div id=horizontal-bar-chart></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class=row>
-            <div class=col-xl-8>
-              <div class="card card-default">
-                <div class="card-header align-items-center">
-                  <h2 class="">Sales by Product</h2> <a href="#" class="btn btn-primary btn-pill" data-toggle=modal data-target="#modal-stock">Add Stock</a>
-                </div>
-                <div class=card-body>
-                  <div class=tab-content>
-                    <table id=product-sale class="table table-product " style="width:100%">
-                      <thead>
-                        <tr>
-                          <th>Product Name</th>
-                          <th>Unit</th>
-                          <th>Amount</th>
-                          <th>%sold</th>
-                          <th class=th-width-250></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Coach Swagger</td>
-                          <td>134</td>
-                          <td>$24541</td>
-                          <td>35.28%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 70%" aria-valuenow="70%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Toddler Shoes</td>
-                          <td>119</td>
-                          <td>$20225</td>
-                          <td>27.05%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 55%" aria-valuenow="55%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Hat Black Suits</td>
-                          <td>101</td>
-                          <td>$17,290</td>
-                          <td>20.25%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 45%" aria-valuenow="45%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Backpack Gents</td>
-                          <td>59</td>
-                          <td>$1150</td>
-                          <td>12.50%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 25%" aria-valuenow="25%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Speed 500 Ignite</td>
-                          <td>25</td>
-                          <td>$590</td>
-                          <td>02.10%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 10%" aria-valuenow="10%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Earphone & Headphone</td>
-                          <td>23</td>
-                          <td>$450</td>
-                          <td>02%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 8%" aria-valuenow="8%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Gucci Watch</td>
-                          <td>32</td>
-                          <td>$554</td>
-                          <td>8%</td>
-                          <td>
-                            <div class="progress progress-md rounded-0">
-                              <div class=progress-bar role=progressbar style="width: 8%" aria-valuenow="8%" aria-valuemin=0 aria-valuemax=100></div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class=col-xl-4>
-              <div class="card card-default chat">
-                <div class=card-header>
-                  <h2>Selena Wagner</h2>
-                  <div class="dropdown dropdown-chat-state">
-                    <button class="dropdown-toggle btn btn-primary btn-rounded-circle" type=button id=dropdownMenuButton data-toggle=dropdown aria-haspopup=true aria-expanded=false data-display=static> <i class="mdi mdi-account-alert"></i> </button>
-                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby=dropdownMenuButton>
-                      <li>
-                        <a href="#" class=user-link> <img src="./Views/admin/web/images/user/user-sm-01.jpg" alt="User Image"> <span class=username>anna patuary <span class="badge badge-secondary">18</span> </span> <span class="state active"> <i class="mdi mdi-circle-medium"></i> </span> </a>
-                      </li>
-                      <li>
-                        <a href="#" class=user-link> <img src="./Views/admin/web/images/user/user-sm-02.jpg" alt="User Image"> <span class=username>riman Ghose <span class="badge badge-secondary">18</span> </span> <span class=state> 1hrs </span> </a>
-                      </li>
-                      <li>
-                        <a href="#" class=user-link> <img src="./Views/admin/web/images/user/user-sm-03.jpg" alt="User Image"> <span class=username>riman Ghose <span class="badge badge-secondary">18</span> </span> <span class=state> 1hrs </span> </a>
-                      </li>
-                      <li>
-                        <a href="#" class=user-link> <img src="./Views/admin/web/images/user/user-sm-04.jpg" alt="User Image"> <span class=username>riman Ghose <span class="badge badge-secondary">18</span> </span> <span class=state> 1hrs </span> </a>
-                      </li>
-                      <li>
-                        <a href="#" class=user-link> <img src="./Views/admin/web/images/user/user-sm-05.jpg" alt="User Image"> <span class=username>riman Ghose</span> <span class=state>15min</span> </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="card-body pb-0" data-simplebar style="height: 363px;">
-                  <div class="media media-chat"> <img src="./Views/admin/web/images/user/user-sm-01.jpg" class=rounded-circle alt="Avata Image">
-                    <div class=media-body>
-                      <div class=text-content> <span class=message>Hello my name is anna.</span>
-                        <time class=time>5 mins ago</time>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="media media-chat media-chat-right">
-                    <div class=media-body>
-                      <div class=text-content> <span class=message>Hello i am Riman.</span>
-                        <time class=time>4 mins ago</time>
-                      </div>
-                      <div class=text-content> <span class=message>I want to know about yourself</span>
-                        <time class=time>3 mins ago</time>
-                      </div>
-                    </div> <img src="./Views/admin/web/images/user/user-sm-02.jpg" class=rounded-circle alt="Avata Image">
-                  </div>
-                  <div class="media media-chat"> <img src="./Views/admin/web/images/user/user-sm-01.jpg" class=rounded-circle alt="Avata Image">
-                    <div class=media-body>
-                      <div class=text-content> <span class=message>Its had resolving otherwise she contented therefore.</span>
-                        <time class=time>1 mins ago</time>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class=chat-footer>
-                  <form>
-                    <div class="input-group input-group-chat">
-                      <div class=input-group-prepend> <span class="emoticon-icon mdi mdi-emoticon-happy-outline"></span> </div>
-                      <input class=form-control aria-label="Text input with dropdown button">
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal fade modal-stock" id=modal-stock aria-labelledby=modal-stock aria-hidden=true>
-            <div class="modal-dialog modal-xl modal-dialog-centered" role=document>
-              <form action="#">
-                <div class=modal-content>
-                  <div class="modal-header align-items-center p3 p-md-5">
-                    <h2 class=modal-title id=exampleModalGridTitle>Add Stock</h2>
-                    <div>
-                      <button type=button class="btn btn-light btn-pill mr-1 mr-md-2" data-dismiss=modal> cancel </button>
-                      <button type=submit class="btn btn-primary btn-pill" data-dismiss=modal> save </button>
-                    </div>
-                  </div>
-                  <div class="modal-body p3 p-md-5">
-                    <div class=row>
-                      <div class=col-lg-8>
-                        <h3 class="h5 mb-5">Product Information</h3>
-                        <div class="form-group mb-5">
-                          <label for=new-product>Product Title</label>
-                          <input class=form-control id=new-product placeholder="Add Product">
-                        </div>
-                        <div class="form-row mb-4">
-                          <div class=col>
-                            <label for=price>Price</label>
-                            <div class=input-group>
-                              <div class=input-group-prepend> <span class=input-group-text id=basic-addon1>$</span> </div>
-                              <input class=form-control id=price placeholder=Price aria-label=Price aria-describedby=basic-addon1>
-                            </div>
-                          </div>
-                          <div class=col>
-                            <label for=sale-price>Sale Price</label>
-                            <div class=input-group>
-                              <div class=input-group-prepend> <span class=input-group-text id=basic-addon1>$</span> </div>
-                              <input class=form-control id=sale-price placeholder="Sale Price" aria-label=SalePrice aria-describedby=basic-addon1>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="product-type mb-3 ">
-                          <label class=d-block for=sale-price>Product Type <i class="mdi mdi-help-circle-outline"></i> </label>
-                          <div>
-                            <div class="custom-control custom-radio d-inline-block mr-3 mb-3">
-                              <input type=radio id=customRadio1 name=customRadio class=custom-control-input checked>
-                              <label class=custom-control-label for=customRadio1>Physical Good</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mr-3 mb-3">
-                              <input type=radio id=customRadio2 name=customRadio class=custom-control-input>
-                              <label class=custom-control-label for=customRadio2>Digital Good</label>
-                            </div>
-                            <div class="custom-control custom-radio d-inline-block mr-3 mb-3">
-                              <input type=radio id=customRadio3 name=customRadio class=custom-control-input>
-                              <label class=custom-control-label for=customRadio3>Service</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class=editor>
-                          <label class=d-block for=sale-price>Description <i class="mdi mdi-help-circle-outline"></i>
-                          </label>
-                          <div id=standalone>
-                            <div id=toolbar> <span class=ql-formats> <select class=ql-font></select> <select class=ql-size></select> </span> <span class=ql-formats> <button class=ql-bold></button> <button class=ql-italic></button> <button class=ql-underline></button> </span> <span class=ql-formats> <select class=ql-color></select> </span> <span class=ql-formats> <button class=ql-blockquote></button> </span> <span class=ql-formats> <button class=ql-list value=ordered></button> <button class=ql-list value=bullet></button> <button class=ql-indent value=-1></button> <button class=ql-indent value="+1"></button> </span> <span class=ql-formats> <button class=ql-direction value=rtl></button> <select class=ql-align></select> </span> </div>
-                          </div>
-                          <div id=editor></div>
-                          <div class="custom-control custom-checkbox d-inline-block mt-2">
-                            <input type=checkbox class=custom-control-input id=customCheck2>
-                            <label class=custom-control-label for=customCheck2>Hide product from published site</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class=col-lg-4>
-                        <div class=custom-file>
-                          <input type=file class=custom-file-input id=customFile placeholder="please imgae here"> <span class=upload-image>Click here to <span class=text-primary>add product image.</span> </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Footer -->
-      <?php require_once "./Views/admin/templates/footerSecond.php" ?>
-    </div>
-  </div>
-
-  <!-- Card Offcanvas -->
-  <?php require_once "./Views/admin/templates/cardoffcanvas.php" ?>
+<body data-background-color="dark">
+	<div class="wrapper">
+		<?php require_once "./Views/admin/templates/main-header.php" ?>
+		<!-- Sidebar -->
+		<?php require_once "./Views/admin/templates/sidebar.php" ?>
+		<!-- End Sidebar -->
+		<div class="main-panel">
+			<div class="content">
+				<div class="page-inner">
+					<div class="mt-2 mb-4">
+						<h2 class="text-white pb-2">Welcome back, Hizrian!</h2>
+						<h5 class="text-white op-7 mb-4">Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.</h5>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card card-dark bg-primary-gradient">
+								<div class="card-body pb-0">
+									<div class="h1 fw-bold float-right">+5%</div>
+									<h2 class="mb-2">17</h2>
+									<p>Users online</p>
+									<div class="pull-in sparkline-fix chart-as-background">
+										<div id="lineChart"><canvas width="327" height="70" style="display: inline-block; width: 327px; height: 70px; vertical-align: top;"></canvas></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-dark bg-secondary-gradient">
+								<div class="card-body pb-0">
+									<div class="h1 fw-bold float-right">-3%</div>
+									<h2 class="mb-2">27</h2>
+									<p>New Users</p>
+									<div class="pull-in sparkline-fix chart-as-background">
+										<div id="lineChart2"><canvas width="327" height="70" style="display: inline-block; width: 327px; height: 70px; vertical-align: top;"></canvas></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-dark bg-success2">
+								<div class="card-body pb-0">
+									<div class="h1 fw-bold float-right">+7%</div>
+									<h2 class="mb-2">213</h2>
+									<p>Transactions</p>
+									<div class="pull-in sparkline-fix chart-as-background">
+										<div id="lineChart3"><canvas width="327" height="70" style="display: inline-block; width: 327px; height: 70px; vertical-align: top;"></canvas></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row">
+										<div class="card-title">User Statistics</div>
+										<div class="card-tools">
+											<a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+												<span class="btn-label">
+													<i class="fa fa-pencil"></i>
+												</span>
+												Export
+											</a>
+											<a href="#" class="btn btn-info btn-border btn-round btn-sm">
+												<span class="btn-label">
+													<i class="fa fa-print"></i>
+												</span>
+												Print
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="chart-container" style="min-height: 375px">
+										<canvas id="statisticsChart"></canvas>
+									</div>
+									<div id="myChartLegend"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-secondary">
+								<div class="card-header">
+									<div class="card-title">Daily Sales</div>
+									<div class="card-category">March 25 - April 02</div>
+								</div>
+								<div class="card-body pb-0">
+									<div class="mb-4 mt-2">
+										<h1>$4,578.58</h1>
+									</div>
+									<div class="pull-in">
+										<canvas id="dailySalesChart"></canvas>
+									</div>
+								</div>
+							</div>
+							<div class="card card-primary bg-primary-gradient">
+								<div class="card-body">
+									<h4 class="mb-1 fw-bold">Tasks Progress</h4>
+									<div id="task-complete" class="chart-circle mt-4 mb-3"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row row-card-no-pd">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row">
+										<h4 class="card-title">Users Geolocation</h4>
+										<div class="card-tools">
+											<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>
+											<button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
+											<button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>
+										</div>
+									</div>
+									<p class="card-category">
+									Map of the distribution of users around the world</p>
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="table-responsive table-hover table-sales">
+												<table class="table">
+													<tbody>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="./Views/admin/web/assets/img/flags/id.png" alt="indonesia">
+																</div>
+															</td>
+															<td>Indonesia</td>
+															<td class="text-right">
+																2.320
+															</td>
+															<td class="text-right">
+																42.18%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="./Views/admin/web/assets/img/flags/us.png" alt="united states">
+																</div>
+															</td>
+															<td>USA</td>
+															<td class="text-right">
+																240
+															</td>
+															<td class="text-right">
+																4.36%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="./Views/admin/web/assets/img/flags/au.png" alt="australia">
+																</div>
+															</td>
+															<td>Australia</td>
+															<td class="text-right">
+																119
+															</td>
+															<td class="text-right">
+																2.16%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="./Views/admin/web/assets/img/flags/ru.png" alt="russia">
+																</div>
+															</td>
+															<td>Russia</td>
+															<td class="text-right">
+																1.081
+															</td>
+															<td class="text-right">
+																19.65%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="./Views/admin/web/assets/img/flags/cn.png" alt="china">
+																</div>
+															</td>
+															<td>China</td>
+															<td class="text-right">
+																1.100
+															</td>
+															<td class="text-right">
+																20%
+															</td>
+														</tr>
+														<tr>
+															<td>
+																<div class="flag">
+																	<img src="./Views/admin/web/assets/img/flags/br.png" alt="brazil">
+																</div>
+															</td>
+															<td>Brasil</td>
+															<td class="text-right">
+																640
+															</td>
+															<td class="text-right">
+																11.63%
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="mapcontainer">
+												<div id="map-example" class="vmap"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Top Products</div>
+								</div>
+								<div class="card-body pb-0">
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="./Views/admin/web/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">CSS</h6>
+											<small class="text-muted">Cascading Style Sheets</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">+$17</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="./Views/admin/web/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">J.CO Donuts</h6>
+											<small class="text-muted">The Best Donuts</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">+$300</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar">
+											<img src="./Views/admin/web/assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
+										</div>
+										<div class="flex-1 pt-1 ml-2">
+											<h6 class="fw-bold mb-1">Ready Pro</h6>
+											<small class="text-muted">Bootstrap 4 Admin Dashboard</small>
+										</div>
+										<div class="d-flex ml-auto align-items-center">
+											<h3 class="text-info fw-bold">+$350</h3>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="pull-in">
+										<canvas id="topProductsChart"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<div class="card-title fw-mediumbold">Suggested People</div>
+									<div class="card-list">
+										<div class="item-list">
+											<div class="avatar">
+												<img src="./Views/admin/web/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Jimmy Denis</div>
+												<div class="status">Graphic Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-xs">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="./Views/admin/web/assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Chad</div>
+												<div class="status">CEO Zeleaf</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-xs">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="./Views/admin/web/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Talha</div>
+												<div class="status">Front End Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-xs">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="./Views/admin/web/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">John Doe</div>
+												<div class="status">Back End Developer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-xs">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="./Views/admin/web/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Talha</div>
+												<div class="status">Front End Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-xs">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+										<div class="item-list">
+											<div class="avatar">
+												<img src="./Views/admin/web/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+											</div>
+											<div class="info-user ml-3">
+												<div class="username">Jimmy Denis</div>
+												<div class="status">Graphic Designer</div>
+											</div>
+											<button class="btn btn-icon btn-primary btn-round btn-xs">
+												<i class="fa fa-plus"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="card card-primary bg-primary-gradient">
+								<div class="card-body">
+									<h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
+									<h1 class="mb-4 fw-bold">17</h1>
+									<h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
+									<div id="activeUsersChart"></div>
+									<h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
+									<ul class="list-unstyled">
+										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
+										<li class="d-flex justify-content-between pb-1 pt-1"><small>/product/atlantis/demo.html</small> <span>10</span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-title">Feed Activity</div>
+								</div>
+								<div class="card-body">
+									<ol class="activity-feed">
+										<li class="feed-item feed-item-secondary">
+											<time class="date" datetime="9-25">Sep 25</time>
+											<span class="text">Responded to need <a href="#">"Volunteer opportunity"</a></span>
+										</li>
+										<li class="feed-item feed-item-success">
+											<time class="date" datetime="9-24">Sep 24</time>
+											<span class="text">Added an interest <a href="#">"Volunteer Activities"</a></span>
+										</li>
+										<li class="feed-item feed-item-info">
+											<time class="date" datetime="9-23">Sep 23</time>
+											<span class="text">Joined the group <a href="single-group.php">"Boardsmanship Forum"</a></span>
+										</li>
+										<li class="feed-item feed-item-warning">
+											<time class="date" datetime="9-21">Sep 21</time>
+											<span class="text">Responded to need <a href="#">"In-Kind Opportunity"</a></span>
+										</li>
+										<li class="feed-item feed-item-danger">
+											<time class="date" datetime="9-18">Sep 18</time>
+											<span class="text">Created need <a href="#">"Volunteer Opportunity"</a></span>
+										</li>
+										<li class="feed-item">
+											<time class="date" datetime="9-17">Sep 17</time>
+											<span class="text">Attending the event <a href="single-event.php">"Some New Event"</a></span>
+										</li>
+									</ol>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-head-row">
+										<div class="card-title">Support Tickets</div>
+										<div class="card-tools">
+											<ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
+												<li class="nav-item">
+													<a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">Today</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week" role="tab" aria-selected="false">Week</a>
+												</li>
+												<li class="nav-item">
+													<a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month" role="tab" aria-selected="false">Month</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="d-flex">
+										<div class="avatar avatar-online">
+											<span class="avatar-title rounded-circle border border-white bg-info">J</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">pending</span></h6>
+											<span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">8:40 PM</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-offline">
+											<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">open</span></h6>
+											<span class="text-muted">I have some query regarding the license issue.</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">1 Day Ago</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-away">
+											<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-muted pl-3">closed</span></h6>
+											<span class="text-muted">Is there any update plan for RTL version near future?</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">2 Days Ago</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-offline">
+											<span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h6 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-success pl-3">open</span></h6>
+											<span class="text-muted">I have some query regarding the license issue.</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">2 Day Ago</small>
+										</div>
+									</div>
+									<div class="separator-dashed"></div>
+									<div class="d-flex">
+										<div class="avatar avatar-away">
+											<span class="avatar-title rounded-circle border border-white bg-danger">L</span>
+										</div>
+										<div class="flex-1 ml-3 pt-1">
+											<h6 class="text-uppercase fw-bold mb-1">Logan Paul <span class="text-muted pl-3">closed</span></h6>
+											<span class="text-muted">Is there any update plan for RTL version near future?</span>
+										</div>
+										<div class="float-right pt-1">
+											<small class="text-muted">2 Days Ago</small>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="footer">
+				<div class="container-fluid">
+					<nav class="pull-left">
+						<ul class="nav">
+							<li class="nav-item">
+								<a class="nav-link" href="https://www.themekita.com">
+									ThemeKita
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">
+									Help
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#">
+									Licenses
+								</a>
+							</li>
+						</ul>
+					</nav>
+					<div class="copyright ml-auto">
+						2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
+					</div>				
+				</div>
+			</footer>
+		</div>
+		
+		<!-- Custom template | don't include it in your project! -->
+		<div class="custom-template">
+			<div class="title">Settings</div>
+			<div class="custom-content">
+				<div class="switcher">
+					<div class="switch-block">
+						<h4>Logo Header</h4>
+						<div class="btnSwitch">
+							<button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="blue"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="green"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="red"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="white"></button>
+							<br/>
+							<button type="button" class="selected changeLogoHeaderColor" data-color="dark2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+						</div>
+					</div>
+					<div class="switch-block">
+						<h4>Navbar Header</h4>
+						<div class="btnSwitch">
+							<button type="button" class="selected changeTopBarColor" data-color="dark"></button>
+							<button type="button" class="changeTopBarColor" data-color="blue"></button>
+							<button type="button" class="changeTopBarColor" data-color="purple"></button>
+							<button type="button" class="changeTopBarColor" data-color="light-blue"></button>
+							<button type="button" class="changeTopBarColor" data-color="green"></button>
+							<button type="button" class="changeTopBarColor" data-color="orange"></button>
+							<button type="button" class="changeTopBarColor" data-color="red"></button>
+							<button type="button" class="changeTopBarColor" data-color="white"></button>
+							<br/>
+							<button type="button" class="changeTopBarColor" data-color="dark2"></button>
+							<button type="button" class="changeTopBarColor" data-color="blue2"></button>
+							<button type="button" class="changeTopBarColor" data-color="purple2"></button>
+							<button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
+							<button type="button" class="changeTopBarColor" data-color="green2"></button>
+							<button type="button" class="changeTopBarColor" data-color="orange2"></button>
+							<button type="button" class="changeTopBarColor" data-color="red2"></button>
+						</div>
+					</div>
+					<div class="switch-block">
+						<h4>Sidebar</h4>
+						<div class="btnSwitch">
+							<button type="button" class="changeSideBarColor" data-color="white"></button>
+							<button type="button" class="changeSideBarColor" data-color="dark"></button>
+							<button type="button" class="selected changeSideBarColor" data-color="dark2"></button>
+						</div>
+					</div>
+					<div class="switch-block">
+						<h4>Background</h4>
+						<div class="btnSwitch">
+							<button type="button" class="changeBackgroundColor" data-color="bg2"></button>
+							<button type="button" class="changeBackgroundColor selected" data-color="bg1"></button>
+							<button type="button" class="changeBackgroundColor" data-color="bg3"></button>
+							<button type="button" class="selected changeBackgroundColor" data-color="dark"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="custom-toggle">
+				<i class="flaticon-settings"></i>
+			</div>
+		</div>
+		<!-- End Custom template -->
+	</div>

@@ -3,9 +3,11 @@ session_start();
 require_once "Config/Db.php";
 require_once "Models/BaseModel.php";
 require_once "Controllers/BaseController.php";
+require_once "Helper/Data.php";
 
 if(empty(['controller']) || empty($_GET['action'])){
-    header("Location: ./?controller=dashboard&action=index");
+    $result = new BaseController;
+    $result->requireTheme();
 }else{
     $controller_lower   =   strtolower($_GET['controller']);
     $controller         =   ucfirst($controller_lower) . "Controller";

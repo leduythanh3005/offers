@@ -1,60 +1,88 @@
-<body class="bg-light-gray" id="body">
-    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
-        <div class="d-flex flex-column justify-content-between">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-10">
-                    <div class="card card-default mb-0">
-                        <div class="card-header pb-0">
-                            <div class="app-brand w-100 d-flex justify-content-center border-bottom-0">
-                                <a class="w-auto pl-0" href="/index.html">
-                                    <img src="./Views/admin/web/images/logo.png" alt="Mono">
-                                    <span class="brand-name text-dark">MONO</span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="card-body px-5 pb-5 pt-0">
-                            <h4 class="text-dark mb-6 text-center">Sign in for free</h4>
-                            <?php
-                            if (isset($_POST["submit"])) {
-                                $username = $_POST["username"];
-                                $password = $_POST["password"];
-                                $username = strip_tags($username);
-                                $username = addslashes($username);
-                                $password = strip_tags($password);
-                                if ($username == "" || $password == "") {
-                                    echo "Please enter full information";
-                                } else {
-                                    $password = md5(addslashes($password));
-                                    $result = new LoginController;
-                                    $result->submit($username, $password);
-                                }
-                            }
-                            ?>
-                            <form method="POST">
-                                <div class="row">
-                                    <div class="form-group col-md-12 mb-4">
-                                        <input name="username" type="text" class="form-control input-lg" id="email" aria-describedby="emailHelp" placeholder="username">
-                                    </div>
-                                    <div class="form-group col-md-12 ">
-                                        <input name="password" type="password" class="form-control input-lg" id="password" placeholder="Password">
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="d-flex justify-content-between mb-3">
-                                            <div class="custom-control custom-checkbox mr-3 mb-3">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                                <label class="custom-control-label" for="customCheck2">Remember me</label>
-                                            </div>
-                                            <a class="text-color" href="#"> Forgot password? </a>
-                                        </div>
-                                        <button name="submit" type="submit" class="btn btn-primary btn-pill mb-4">Sign In</button>
-                                        <p>Don't have an account yet ?
-                                            <a class="text-blue" href="#">Sign Up</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </form>
+<body class="login">
+    <div class="wrapper wrapper-login">
+        <div class="container container-login animated fadeIn">
+            <h3 class="text-center">Sign In To Admin</h3>
+            <?php
+            if (isset($_POST["submit"])) {
+                $username = $_POST["username"];
+                $password = $_POST["password"];
+                $username = strip_tags($username);
+                $username = addslashes($username);
+                $password = strip_tags($password);
+                if ($username == "" || $password == "") {
+                    echo "Please enter full information";
+                } else {
+                    $password = md5(addslashes($password));
+                    $result = new LoginController;
+                    $result->submit($username, $password);
+                }
+            }
+            ?>
+            <form method="POST">
+                <div class="login-form">
+                    <div class="form-group form-floating-label">
+                        <input id="username" name="username" type="text" class="form-control input-border-bottom" required>
+                        <label for="username" class="placeholder">Username</label>
+                    </div>
+                    <div class="form-group form-floating-label">
+                        <input id="password" name="password" type="password" class="form-control input-border-bottom" required>
+                        <label for="password" class="placeholder">Password</label>
+                        <div class="show-password">
+                            <i class="icon-eye"></i>
                         </div>
                     </div>
+                    <div class="row form-sub m-0">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="rememberme">
+                            <label class="custom-control-label" for="rememberme">Remember Me</label>
+                        </div>
+                        <a href="#" class="link float-right">Forget Password ?</a>
+                    </div>
+                    <div class="form-action mb-3">
+                        <button name="submit" type="submit" class="btn btn-primary btn-rounded btn-login">Sign In</button>
+                    </div>
+                    <div class="login-account">
+                        <span class="msg">Don't have an account yet ?</span>
+                        <a href="#" id="show-signup" class="link">Sign Up</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="container container-signup animated fadeIn">
+            <h3 class="text-center">Sign Up</h3>
+            <div class="login-form">
+                <div class="form-group form-floating-label">
+                    <input id="fullname" name="fullname" type="text" class="form-control input-border-bottom" required>
+                    <label for="fullname" class="placeholder">Fullname</label>
+                </div>
+                <div class="form-group form-floating-label">
+                    <input id="email" name="email" type="email" class="form-control input-border-bottom" required>
+                    <label for="email" class="placeholder">Email</label>
+                </div>
+                <div class="form-group form-floating-label">
+                    <input id="passwordsignin" name="passwordsignin" type="password" class="form-control input-border-bottom" required>
+                    <label for="passwordsignin" class="placeholder">Password</label>
+                    <div class="show-password">
+                        <i class="icon-eye"></i>
+                    </div>
+                </div>
+                <div class="form-group form-floating-label">
+                    <input id="confirmpassword" name="confirmpassword" type="password" class="form-control input-border-bottom" required>
+                    <label for="confirmpassword" class="placeholder">Confirm Password</label>
+                    <div class="show-password">
+                        <i class="icon-eye"></i>
+                    </div>
+                </div>
+                <div class="row form-sub m-0">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="agree" id="agree">
+                        <label class="custom-control-label" for="agree">I Agree the terms and conditions.</label>
+                    </div>
+                </div>
+                <div class="form-action">
+                    <a href="#" id="show-signin" class="btn btn-danger btn-link btn-login mr-3">Cancel</a>
+                    <a href="#" class="btn btn-primary btn-rounded btn-login">Sign Up</a>
                 </div>
             </div>
         </div>
