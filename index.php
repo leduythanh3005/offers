@@ -18,17 +18,6 @@ if(empty(['controller']) || empty($_GET['action'])){
     $url_model          =   "Models/" . ucfirst($controller_lower) ."Model.php";
     require_once $url_controller;
     require_once $url_model;
-    switch ($controller_lower) {
-        case 'profile':
-            $_SESSION['pagetitle'] = 'User Profile Settings';
-            break;
-        case 'user':
-            $_SESSION['pagetitle'] = 'All Users';
-            break;
-        default:
-            $_SESSION['pagetitle'] = $controller_lower;
-            break;
-    }
     $result = new $controller;
     if($action == 'index'){
         $result -> index($controller_lower);

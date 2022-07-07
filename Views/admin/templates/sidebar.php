@@ -56,7 +56,7 @@
                 </li>
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#setting">
-                        <i class="fas fa-pen-square"></i>
+                        <i class="fas fa-cog"></i>
                         <p>Setting</p>
                         <span class="caret"></span>
                     </a>

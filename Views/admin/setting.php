@@ -7,28 +7,6 @@
 		<div class="main-panel">
 			<div class="content">
 				<div class="page-inner">
-					<div class="page-header">
-						<h4 class="page-title">Alert</h4>
-						<ul class="breadcrumbs">
-							<li class="nav-home">
-								<a href="#">
-									<i class="flaticon-home"></i>
-								</a>
-							</li>
-							<li class="separator">
-								<i class="flaticon-right-arrow"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Base</a>
-							</li>
-							<li class="separator">
-								<i class="flaticon-right-arrow"></i>
-							</li>
-							<li class="nav-item">
-								<a href="#">Sweet Alert</a>
-							</li>
-						</ul>
-					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<?php
@@ -41,35 +19,38 @@
 									case 'Theme 2':
 										$theme = 2;
 										break;
-									
+
 									default:
 										$theme = 1;
 										break;
 								}
 								$result = new SettingController;
+								$helper = new Data;
+								if ($helper->uploadImg($_FILES["filefavicon"])) {
+									$favicon = "./uploads/" . $_FILES["filefavicon"]['name'];
+								} else {
+									$favicon = $setting->settingTheme('site_favicon');
+								};
+								if ($helper->uploadImg($_FILES["filelogo"])) {
+									$logo = "./uploads/" . $_FILES["filelogo"]['name'];
+								} else {
+									$logo = $setting->settingTheme('site_logo');
+								};
 								$array = [
 									'site_title' => $title,
-									'site_theme' => $theme
+									'site_theme' => $theme,
+									'site_logo'	 => $logo,
+									'site_favicon' => $favicon
 								];
-								// $result->setValueSetting($array);
-
-								// $helper = new Data;
-								// $helper->uploadImg($_FILES["fileupload"]);
-								$check = getimagesize($_FILES["fileupload"]["tmp_name"]);
-								if($check !== false)
-								{
-									echo "Đây là file ảnh - " . $check["mime"] . ".";
-								}
-								else
-								{
-									echo "Không phải file ảnh.";
-								}
-							}						
+								$result->setValueSetting($array);
+							}
 							?>
-							<form method="POST">
+							<form method="POST" enctype="multipart/form-data">
 								<div class="card">
 									<div class="card-header d-flex justify-content-between">
-										<div class="card-title">Sweet Alert</div>
+										<div class="page-header mb-0">
+											<h4 class="page-title">Setting</h4>
+										</div>
 										<button name="submit" type="submit" class="btn btn-success">Save</button>
 									</div>
 								</div>
@@ -94,12 +75,33 @@
 										</div>
 									</div>
 									<div class="col-md-4">
-										<div class="card">
-											<div class="card-body">
-												<div class="form-group">
-													<label for="exampleFormControlFile1">Upload Favicon</label>
-													<input type="file" name="fileupload" id="fileupload">
-													<!-- <input name="fileupload" type="file" class="form-control-file" id="exampleFormControlFile1"> -->
+										<div class="row">
+											<div class="col-md-6">
+												<div class="card">
+													<div class="card-body">
+														<div class="card card-post card-round">
+															<img class="card-img-top" src="<?= $setting->settingTheme('site_favicon') ?>" alt="Card image cap">
+														</div>
+														<div class="form-group">
+															<label for="exampleFormControlFile1">Upload Favicon</label>
+															<input name="filefavicon" type="file" class="form-control-file" id="exampleFormControlFile1">
+															<!-- <small class="form-text text-muted">Size 16 X 16px</small> -->
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="card">
+													<div class="card-body">
+														<div class="card card-post card-round">
+															<img class="card-img-top" src="<?= $setting->settingTheme('site_logo') ?>" alt="Card image cap">
+														</div>
+														<div class="form-group">
+															<label for="exampleFormControlFile2">Upload Logo</label>
+															<input name="filelogo" type="file" class="form-control-file" id="exampleFormControlFile2">
+															<!-- <small class="form-text text-muted">Size 108 X 35px</small> -->
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
