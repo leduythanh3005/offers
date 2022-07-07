@@ -8,7 +8,10 @@ class SettingController extends BaseController{
         $this->settingModel =  new SettingModel;
     }
     
-    public function setValueSetting($column, $value){
-        $this->settingModel->setValueSetting($column, $value);
+    public function setValueSetting(array $array){
+        if($this->settingModel->setValueSetting($array)){
+            $url = 'Location: ./?controller=setting&action=index';
+            header($url);
+        }
     }
 }

@@ -66,9 +66,13 @@ class BaseModel extends Db
         });
         $columns =  implode(', ', $flattened);
         $sql = "UPDATE $table SET $columns WHERE $values";
-        if(mysqli_query($this->connect, $sql)){
-            $result = true;
-        };
+        try {
+            if(mysqli_query($this->connect, $sql)){
+                $result = true;
+            };
+        } catch (\Throwable $th) {
+            throw $th;
+        }
         return $result;
     }
 

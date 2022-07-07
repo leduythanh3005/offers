@@ -14,7 +14,7 @@ class BaseController extends BaseModel{
         require_once "Views/admin/templates/footer.php";
     }
 
-    public function requireTheme(){
-        require_once "Views/frontend/theme_1/index.php";
+    public function requireTheme($theme){
+        require_once "Views/frontend/theme_".$theme . "/index.php";
     }
 }

@@ -32,37 +32,43 @@
                                     <span class="link-collapse">Settings</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="./?controller=login&action=logout">
+                                    <span class="link-collapse">Logout</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <ul class="nav nav-primary">
                 <li class="nav-item active">
-                    <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                    <a href="./?controller=dashboard&action=index" class="collapsed" >
                         <i class="fas fa-home"></i>
                         <p>Dashboard</p>
-                        <span class="caret"></span>
                     </a>
-                    <div class="collapse" id="dashboard">
-                        <ul class="nav nav-collapse">
-                            <li>
-                                <a href="./Views/admin/web/demo1/index.html">
-                                    <span class="sub-item">Dashboard 1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="./Views/admin/web/demo2/index.html">
-                                    <span class="sub-item">Dashboard 2</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
                 <li class="nav-section">
                     <span class="sidebar-mini-icon">
                         <i class="fa fa-ellipsis-h"></i>
                     </span>
                     <h4 class="text-section">Components</h4>
+                </li>
+                <li class="nav-item">
+                    <a data-toggle="collapse" href="#setting">
+                        <i class="fas fa-pen-square"></i>
+                        <p>Setting</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse" id="setting">
+                        <ul class="nav nav-collapse">
+                            <li>
+                                <a href="./?controller=setting&action=index">
+                                    <span class="sub-item">Site</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a data-toggle="collapse" href="#base">

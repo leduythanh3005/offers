@@ -1,11 +1,9 @@
-<?php
-	$helper = new Data;
-?>
+<?php $setting = new BaseModel ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title><?= $helper->settingTitle() ?></title>
+	<title><?= $setting->settingTheme('site_title') ?></title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="./Views/admin/web/assets/img/icon.ico" type="image/x-icon"/>
 

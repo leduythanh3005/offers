@@ -19,20 +19,9 @@ class LoginModel extends BaseModel{
                 return $this->checkLogin($username, $password ,$table);
             }
         } catch (\Throwable $th) {
-            $this->createTableUser($table);
-            $table_amount = self::TABLE_AMOUNT;
-            $this->createTableAmount($table_amount);
-            $arrayAmount = [
-                'username' => 'admin'
-            ];
-            $this->baseModel->setValue($arrayAmount,$table_amount);
-            $array = [
-                'name'      => 'admin',
-                'username'  => 'admin',
-                'password'  => '21232f297a57a5a743894a0e4a801fc3',
-                'level'     => 1
-            ];
-            $this->baseModel->setValue($array,$table);
+            $this->createTableUser();
+            $this->createTableAmount();
+            $this->createTableSetting();
             return $this->checkLogin($username, $password ,$table);
         }
     }
@@ -40,13 +29,18 @@ class LoginModel extends BaseModel{
     private function checkLogin(string $username,string $password ,string $table)
     {
         $sql = "SELECT * FROM $table WHERE username = '$username' AND password = '$password' ";
-        $query = mysqli_query($this->connect, $sql);
-        $num_rows = mysqli_num_rows($query);
-        return $num_rows;
+        try {
+            $query = mysqli_query($this->connect, $sql);
+            $num_rows = mysqli_num_rows($query);
+            return $num_rows;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
-    private function createTableUser(string $table)
+    private function createTableUser()
     {
+        $table = self::TABLE_USERS;
         $sql = "CREATE TABLE $table (
                                         id int NOT NULL AUTO_INCREMENT,
                                         name varchar(255),
@@ -56,11 +50,24 @@ class LoginModel extends BaseModel{
                                         group_name varchar(255),
                                         PRIMARY KEY(id)
                                     )";
-        mysqli_query($this->connect, $sql);
+        try {
+            mysqli_query($this->connect, $sql);
+            $array = [
+                'name'      => 'admin',
+                'username'  => 'admin',
+                'password'  => '21232f297a57a5a743894a0e4a801fc3',
+                'level'     => 1
+            ];
+            $this->baseModel->setValue($array,$table);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
-    private function createTableAmount(string $table)
+    private function createTableAmount()
     {
+        $table = self::TABLE_AMOUNT;
         $sql = "CREATE TABLE $table (   id int NOT NULL AUTO_INCREMENT,
                                         username varchar(255),
                                         daily_earnings float NOT NULL,
@@ -68,11 +75,21 @@ class LoginModel extends BaseModel{
                                         monthly_earnings float NOT NULL,
                                         PRIMARY KEY(id)
                                     )";
-        mysqli_query($this->connect, $sql);
+        try {
+            mysqli_query($this->connect, $sql);
+            $array = [
+                'username' => 'admin'
+            ];
+            $this->baseModel->setValue($array,$table);
+            
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
-    private function createTableSetting(string $table)
+    private function createTableSetting()
     {
+        $table = self::TABLE_SETTING;
         $sql = "CREATE TABLE $table (   id int NOT NULL AUTO_INCREMENT,
                                         site_logo varchar(255),
                                         site_favicon varchar(255),
@@ -80,6 +97,17 @@ class LoginModel extends BaseModel{
                                         site_theme varchar(255),
                                         PRIMARY KEY(id)
                                     )";
-        mysqli_query($this->connect, $sql);
+        try {
+            mysqli_query($this->connect, $sql);
+            $array = [
+                'site_title'    => 'Thanh Aloha',
+                'site_favicon'  => 'Thanh Aloha',
+                'site_logo'     => 'Thanh Aloha',
+                'site_theme'    => 'Thanh Aloha',
+            ];
+            $this->baseModel->setValue($array,$table);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }

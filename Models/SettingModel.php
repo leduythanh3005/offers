@@ -12,16 +12,13 @@ class SettingModel extends BaseModel
         $this->tableSetting = self::TABLE_SETTING;
     }
 
-    public function setValueSetting(string $column, string $value)
+    public function setValueSetting(array $array)
     {
-        $array = [
-            $column  => $value,
-        ];
         $where = [
             'id' => 1
         ];
         try {
-            $this->baseModel->updateValue($array,$this->tableSetting,$where);
+            return $this->baseModel->updateValue($array,$this->tableSetting,$where);
         } catch (\Throwable $th) {
             throw $th;
         }

@@ -6,8 +6,10 @@ require_once "Controllers/BaseController.php";
 require_once "Helper/Data.php";
 
 if(empty(['controller']) || empty($_GET['action'])){
-    $result = new BaseController;
-    $result->requireTheme();
+    $result     = new BaseController;
+    $baseModel  = new BaseModel;
+    $theme  = $baseModel->settingTheme('site_theme');
+    $result->requireTheme($theme);
 }else{
     $controller_lower   =   strtolower($_GET['controller']);
     $controller         =   ucfirst($controller_lower) . "Controller";
