@@ -3,106 +3,111 @@ if ($_SESSION['username'] != 'admin') {
     header("Location: ./?controller=login&action=index");
 }
 ?>
-<body class="navbar-fixed sidebar-fixed" id="body">
-    <script>
-        NProgress.configure({
-            showSpinner: false
-        });
-        NProgress.start();
-    </script>
-    <div id="toaster"></div>
+
+<body data-background-color="dark">
     <div class="wrapper">
+        <?php require_once "./Views/admin/templates/main-header.php" ?>
+        <!-- Sidebar -->
         <?php require_once "./Views/admin/templates/sidebar.php" ?>
-        <div class="page-wrapper">
-            <?php require_once "./Views/admin/templates/headerNav.php" ?>
-            <div class=content-wrapper>
-                <div class=content>
-                    <div class=row>
-                        <div class=col-xl-3>
-                            <div class="card card-default">
-                                <div class=card-header>
-                                    <h2>Settings</h2>
-                                </div>
-                                <div class="card-body pt-0">
-                                    <ul class="nav nav-settings">
-                                        <li class=nav-item>
-                                            <a class="nav-link active" href="user-account-settings.html"> <i class="mdi mdi-settings-outline mr-1"></i> Account </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class=col-xl-9>
-                            <div class="card card-default">
-                                <div class=card-header>
-                                    <h2 class=mb-5>Account Settings</h2>
-                                </div>
-                                <div class=card-body>
+        <!-- End Sidebar -->
+        <div class="main-panel">
+            <div class="content">
+                <div class="page-inner">
+                    <div class="row mx-auto">
+                        <div class="col-md-4">
+                            <form method="POST" enctype="multipart/form-data">
                                 <?php
                                 if (isset($_POST["submit"])) {
                                     $password = $_POST["password"];
-                                    $password = strip_tags($password);
-                                    $password = md5(addslashes($password));
-                                    $result = new ProfileController;
-                                    $username = $_SESSION['username'];
-                                    if($result->updatePass($username, $password)){
-                                        echo '  <div class="alert alert-success alert-icon" role="alert">
-                                                    <i class="mdi mdi-checkbox-marked-outline"></i>  Success!
-                                                </div>
-                                            ';
-                                    }else{
-                                        echo '  <div class="alert alert-danger alert-icon" role="alert">
-                                                    <i class="mdi mdi-diameter-variant"></i> Fail!
-                                                </div>
-                                            ';
+                                    if (isset($password) && $password != '') {
+                                        $password = strip_tags($password);
+                                        $password = md5(addslashes($password));
+                                        $result = new ProfileController;
+                                        $username = $_SESSION['username'];
+                                        if ($result->updatePass($username, $password)) {
+                                            echo '  <div class="alert alert-success alert-icon" role="alert">
+                                                        <i class="mdi mdi-checkbox-marked-outline"></i>  Success!
+                                                    </div>
+                                                ';
+                                        } else {
+                                            echo '  <div class="alert alert-danger alert-icon" role="alert">
+                                                        <i class="mdi mdi-diameter-variant"></i> Fail!
+                                                    </div>
+                                                ';
+                                        }
                                     }
                                 }
                                 ?>
-                                    <form method="POST">
-                                        <div class="form-group mb-4">
-                                            <label for=newPassword>New password</label>
-                                            <input name="password" type=password class=form-control id=newPassword>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group form-floating-label">
+                                            <label for="title2">Nhập mật khẩu mới</label>
+                                            <input name="password" type="password" class="form-control" id="title2">
                                         </div>
-                                        <div class="form-group mb-4">
-                                            <label for=conPassword>Confirm password</label>
-                                            <input type=password class=form-control id=conPassword>
-                                            <div class="text-danger small mt-1">Invalid password</div>
+                                        <div class="form-group">
+                                            <label for="title3">Nhập lại mật khẩu mới</label>
+                                            <input name="password2" type="password" class="form-control" id="title3">
+                                            <p class="text-danger">Mật khẩu không khớp</p>
                                         </div>
-                                        <div class="d-flex justify-content-end mt-6">
-                                            <button name="submit" type=submit class="btn btn-primary mb-2 btn-pill" disabled>Update Profile</button>
+                                        <div class="form-group">
+                                            <button class="btn btn-success float-right" name="submit" type="submit" disabled>
+                                                <span class="btn-label">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                                Change
+                                            </button>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                                <script type="text/javascript">
-                                    $(document).ready(function() {
-                                        let val1= '';
-                                        let val2= '';
-                                        $('.text-danger.small.mt-1').hide();
-                                        $("#newPassword").on("input", function() {
-                                            val1 = $(this).val();
-                                        });
-                                        $("#conPassword").on("input", function() {
-                                            val2 = $(this).val();
-                                            $(this).addClass('border-danger');
-                                            $('.text-danger.small.mt-1').show();
-                                            $('.btn.btn-primary.mb-2.btn-pill').attr('disabled' , 'true');
-                                            if(val1 == val2){
-                                                $('.text-danger.small.mt-1').hide();
-                                                $(this).removeClass('border-danger');
-                                                $('.btn.btn-primary.mb-2.btn-pill').removeAttr('disabled');
-                                            }
-                                        });
+                            </form>
+                            <script type="text/javascript">
+                                $(document).ready(function() {
+                                    let val1 = '';
+                                    let val2 = '';
+                                    $('.text-danger').hide();
+                                    $("#title2").on("input", function() {
+                                        val1 = $(this).val();
                                     });
-                                </script>
-                            </div>
+                                    $("#title3").on("input", function() {
+                                        val2 = $(this).val();
+                                        $('.text-danger').show();
+                                        $('.btn.btn-success.float-right').attr('disabled', 'true');
+                                        if (val1 == val2 && val1 != '') {
+                                            $('.text-danger').hide();
+                                            $('.btn.btn-success.float-right').removeAttr('disabled');
+                                        }
+                                    });
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
-            <?php require_once "./Views/admin/templates/footerSecond.php" ?>
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.themekita.com">
+                                    ThemeKita
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Help
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Licenses
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="copyright ml-auto">
+                        2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
-
-    <!-- Card Offcanvas -->
-    <?php require_once "./Views/admin/templates/cardoffcanvas.php" ?>

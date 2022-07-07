@@ -1,3 +1,8 @@
+<?php
+	if ($_SESSION['username'] != 'admin') {
+	header("Location: ./?controller=login&action=index");
+	}
+?>
 <body data-background-color="dark">
 	<div class="wrapper">
 		<?php require_once "./Views/admin/templates/main-header.php" ?>

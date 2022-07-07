@@ -26,4 +26,5 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="./Views/admin/web/assets/css/demo.css">
+	<script src="./Views/admin/web/assets/js/core/jquery.3.2.1.min.js"></script>
 </head>

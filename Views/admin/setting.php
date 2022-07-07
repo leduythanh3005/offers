@@ -1,3 +1,8 @@
+<?php
+	if ($_SESSION['username'] != 'admin') {
+	header("Location: ./?controller=login&action=index");
+	}
+?>
 <body data-background-color="dark">
 	<div class="wrapper">
 		<?php require_once "./Views/admin/templates/main-header.php" ?>
@@ -51,7 +56,12 @@
 										<div class="page-header mb-0">
 											<h4 class="page-title">Setting</h4>
 										</div>
-										<button name="submit" type="submit" class="btn btn-success">Save</button>
+										<button class="btn btn-success" name="submit" type="submit">
+											<span class="btn-label">
+												<i class="fa fa-check"></i>
+											</span>
+											Save
+										</button>
 									</div>
 								</div>
 								<div class="row">
@@ -61,7 +71,6 @@
 												<div class="form-group">
 													<label for="title2">Tiêu đề của website</label>
 													<input name="title" type="text" class="form-control" id="title2" value=<?= $setting->settingTheme('site_title') ?>>
-													<small id="emailHelp2" class="form-text text-muted">Tiêu đề mặc định là Thành Aloha</small>
 												</div>
 												<div class="form-group">
 													<label for="exampleFormControlSelect1">Chọn Theme trang chủ</label>
@@ -79,13 +88,13 @@
 											<div class="col-md-6">
 												<div class="card">
 													<div class="card-body">
-														<div class="card card-post card-round">
-															<img class="card-img-top" src="<?= $setting->settingTheme('site_favicon') ?>" alt="Card image cap">
+														<div class="card card-post card-round mb-0">
+															<img class="card-img-top" src="<?= $setting->settingTheme('site_favicon') ?>" alt="Card image cap" style="width : 50px !important" height="50">
 														</div>
 														<div class="form-group">
 															<label for="exampleFormControlFile1">Upload Favicon</label>
 															<input name="filefavicon" type="file" class="form-control-file" id="exampleFormControlFile1">
-															<!-- <small class="form-text text-muted">Size 16 X 16px</small> -->
+															<small class="form-text text-muted">Size 16 X 16px</small>
 														</div>
 													</div>
 												</div>
@@ -93,13 +102,13 @@
 											<div class="col-md-6">
 												<div class="card">
 													<div class="card-body">
-														<div class="card card-post card-round">
+														<div class="card card-post card-round mb-0">
 															<img class="card-img-top" src="<?= $setting->settingTheme('site_logo') ?>" alt="Card image cap">
 														</div>
 														<div class="form-group">
 															<label for="exampleFormControlFile2">Upload Logo</label>
 															<input name="filelogo" type="file" class="form-control-file" id="exampleFormControlFile2">
-															<!-- <small class="form-text text-muted">Size 108 X 35px</small> -->
+															<small class="form-text text-muted">Size 108 X 35px</small>
 														</div>
 													</div>
 												</div>
