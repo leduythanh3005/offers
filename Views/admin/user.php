@@ -153,7 +153,7 @@ $result = new UserController;
                                                     } else {
                                                         $password   = md5(addslashes($password));
                                                         if ($result->updateRow($username, $password, $name, $level)) {
-                                                            echo '<script>alert("Success!");</script>';
+                                                            // echo '<script>alert("Success!");</script>';
                                                         } else {
                                                             echo '<script>alert("Username already exists!");</script>';
                                                         }
@@ -178,7 +178,7 @@ $result = new UserController;
                                                             <div class="col-md-6">
                                                                 <div class="form-group form-group-default">
                                                                     <label>Username</label>
-                                                                    <input type="text" class="form-control username" placeholder="Username" name="name_update">
+                                                                    <input type="text" class="form-control username" placeholder="Username" name="username_update">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">

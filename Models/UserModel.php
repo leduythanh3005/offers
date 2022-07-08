@@ -72,6 +72,6 @@ class UserModel extends BaseModel{
         $where = [
             'username' => $str
         ];
-        return $this->baseModel->updateValue($array ,$this->table ,$where);
+        return $this->baseModel->updateValue($array,$this->table,$where);
     }
 }
