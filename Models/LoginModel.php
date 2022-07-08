@@ -25,7 +25,10 @@ class LoginModel extends BaseModel{
             $this->createTableSetting();
             return $this->checkLogin($username, $password ,$table);
         } catch (\Throwable $th) {
-            throw $th;
+            $this->createTableUser();
+            $this->createTableAmount();
+            $this->createTableSetting();
+            return $this->checkLogin($username, $password ,$table);
         }
     }
 
