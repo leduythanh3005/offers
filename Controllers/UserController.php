@@ -12,20 +12,6 @@ class UserController extends BaseController
 
     public function creatUser(string $username,string $password,string $name,string $level)
     {
-        switch ($level) {
-            case 'Admin':
-                $level = 1;
-                break;
-            case 'Leader':
-                $level = 2;
-                break;
-            case 'Member':
-                $level = 3;
-                break;
-            default:
-                $level = 4;
-                break;
-        }
         $array = [
             'name' => $name,
             'username' => $username,
@@ -36,20 +22,6 @@ class UserController extends BaseController
     }
 
     public function numberOfUsers(string $level){
-        switch ($level) {
-            case 'Admin':
-                $level = 1;
-                break;
-            case 'Leader':
-                $level = 2;
-                break;
-            case 'Member':
-                $level = 3;
-                break;
-            default:
-                $level = 4;
-                break;
-        }
         return $this->userModel->numberOfUsers($level);
     }
 
@@ -68,4 +40,12 @@ class UserController extends BaseController
         }
     }
 
+    public function updateRow(string $username,string $password,string $name,string $level){
+        $array = [
+            'password' => $password,
+            'name'     => $name,
+            'level'    => $level
+        ];
+        return $this->userModel->updateRow($array,$username);
+    }
 }

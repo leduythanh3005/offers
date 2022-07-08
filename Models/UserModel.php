@@ -68,4 +68,10 @@ class UserModel extends BaseModel{
         return false;
     }
 
+    public function updateRow(array $array,string $str){
+        $where = [
+            'username' => $str
+        ];
+        return $this->baseModel->updateValue($array ,$this->table ,$where);
+    }
 }

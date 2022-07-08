@@ -1,11 +1,20 @@
-<?php $setting = new BaseModel ?>
+<?php 
+	$setting = new BaseModel;
+	try {
+		$title = $setting->settingTheme('site_title');
+		$favicon = $setting->settingTheme('site_favicon');
+	} catch (\Throwable $th) {
+		$title = "Thanh Aloha";
+		$favicon = "./uploads/icon.ico";
+	};
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title><?= $setting->settingTheme('site_title') ?></title>
+	<title><?= $title ?></title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-	<link rel="icon" href="<?= $setting->settingTheme('site_favicon') ?>" type="image/x-icon"/>
+	<link rel="icon" href="<?= $favicon ?>" type="image/x-icon"/>
 
 	<!-- Fonts and icons -->
 	<script src="./Views/admin/web/assets/js/plugin/webfont/webfont.min.js"></script>

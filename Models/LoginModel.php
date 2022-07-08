@@ -46,7 +46,7 @@ class LoginModel extends BaseModel{
                                         name varchar(255),
                                         username varchar(255),
                                         password varchar(255),
-                                        level int,
+                                        level varchar(255),
                                         group_name varchar(255),
                                         PRIMARY KEY(id)
                                     )";
@@ -56,7 +56,7 @@ class LoginModel extends BaseModel{
                 'name'      => 'admin',
                 'username'  => 'admin',
                 'password'  => '21232f297a57a5a743894a0e4a801fc3',
-                'level'     => 1
+                'level'     => 'admin'
             ];
             $this->baseModel->setValue($array,$table);
 
@@ -78,7 +78,10 @@ class LoginModel extends BaseModel{
         try {
             mysqli_query($this->connect, $sql);
             $array = [
-                'username' => 'admin'
+                'username' => 'admin',
+                'daily_earnings' => 0,
+                'weekly_earnings' => 0,
+                'monthly_earnings' => 0
             ];
             $this->baseModel->setValue($array,$table);
             

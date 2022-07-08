@@ -148,7 +148,7 @@ $result = new UserController;
                                                     $username   = strip_tags($username);
                                                     $username   = addslashes($username);
                                                     $password   = strip_tags($password);
-                                                    if ($username == "" || $password == "" || !isset($password) || !isset($username)) {
+                                                    if ($password == "" || !isset($password)) {
                                                         echo '<script>alert("Please enter full information!");</script>';
                                                     } else {
                                                         $password   = md5(addslashes($password));
@@ -246,26 +246,12 @@ $result = new UserController;
                                                 $array = ['id', 'name', 'username', 'level', 'group_name'];
                                                 foreach ($result->getListUser($array) as $value) {
                                                     if ($value['username'] != 'admin') {
-                                                        switch ($value['level']) {
-                                                            case 1:
-                                                                $level = 'Admin';
-                                                                break;
-                                                            case 2:
-                                                                $level = 'Leader';
-                                                                break;
-                                                            case 3:
-                                                                $level = 'Member';
-                                                                break;
-                                                            default:
-                                                                $level = 'Free Member';
-                                                                break;
-                                                        }
                                                 ?>
                                                         <tr>
                                                             <td class=py-0><?= $value['id'] ?></td>
                                                             <td class="name_0"><?= $value['name'] ?></td>
                                                             <td class="username_0"><?= $value['username'] ?></td>
-                                                            <td class="level_0"><?= $level ?></td>
+                                                            <td class="level_0"><?= $value['level'] ?></td>
                                                             <td><?= $value['group_name'] ?></td>
                                                             <td><?= $result->getValueAmountTable('daily_earnings', $value['username']) ?></td>
                                                             <td><?= $result->getValueAmountTable('weekly_earnings', $value['username']) ?></td>
