@@ -15,19 +15,19 @@ Circles.create({
 	styleText:    true
 })
 
-//Notify
-// $.notify({
-// 	icon: 'flaticon-alarm-1',
-// 	title: 'Atlantis Lite',
-// 	message: 'Free Bootstrap 4 Admin Dashboard',
-// },{
-// 	type: 'info',
-// 	placement: {
-// 		from: "bottom",
-// 		align: "right"
-// 	},
-// 	time: 1000,
-// });
+// Notify
+$.notify({
+	icon: 'flaticon-alarm-1',
+	title: 'Donate ủng hộ',
+	message: 'Động lực để hoàn thiện dự án ngày càng tốt hơn <br> Vietcombank 0041000288632 ( LE DUY THANH) <br> Paypal: ldthanhql@gmail.com',
+},{
+	type: 'secondary',
+	placement: {
+		from: "bottom",
+		align: "right"
+	},
+	time: 3600000,
+});
 
 // JQVmap
 $('#map-example').vectorMap(

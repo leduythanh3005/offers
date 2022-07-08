@@ -106,7 +106,7 @@ class LoginModel extends BaseModel{
         try {
             mysqli_query($this->connect, $sql);
             $array = [
-                'site_title'    => 'Thanh Aloha',
+                'site_title'    => 'Thành Aloha',
                 'site_favicon'  => './uploads/icon.ico',
                 'site_logo'     => './uploads/logo.svg',
                 'site_theme'    => '1',

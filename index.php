@@ -11,13 +11,18 @@ if(empty(['controller']) || empty($_GET['action'])){
     $theme  = $baseModel->settingTheme('site_theme');
     $result->requireTheme($theme);
 }else{
-    $_SESSION['favicon'] = "./uploads/icon.ico";
-    $_SESSION['title']    = "Thành Aloha";
     $controller_lower   =   strtolower($_GET['controller']);
     $controller         =   ucfirst($controller_lower) . "Controller";
     $action             =   strtolower($_GET['action']);
     $url_controller     =   "Controllers/" . $controller . ".php";
     $url_model          =   "Models/" . ucfirst($controller_lower) ."Model.php";
+    if($controller_lower == 'login'){
+        $_SESSION['favicon'] = "./uploads/icon.ico";
+        $_SESSION['title']    = "Thành Aloha";
+    }else{
+        unset($_SESSION["favicon"]);
+        unset($_SESSION["title"]);
+    }
     require_once $url_controller;
     require_once $url_model;
     $result = new $controller;

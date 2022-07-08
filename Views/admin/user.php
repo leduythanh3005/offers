@@ -15,10 +15,10 @@ $result = new UserController;
             <div class="content">
                 <div class="page-inner">
                     <div class="page-header">
-                        <h4 class="page-title">DataTables.Net</h4>
+                        <h4 class="page-title">Users</h4>
                         <ul class="breadcrumbs">
                             <li class="nav-home">
-                                <a href="#">
+                                <a href="./?controller=dashboard&action=index">
                                     <i class="flaticon-home"></i>
                                 </a>
                             </li>
@@ -26,15 +26,100 @@ $result = new UserController;
                                 <i class="flaticon-right-arrow"></i>
                             </li>
                             <li class="nav-item">
-                                <a href="#">Tables</a>
+                                <a href="#">Users</a>
                             </li>
                             <li class="separator">
                                 <i class="flaticon-right-arrow"></i>
                             </li>
                             <li class="nav-item">
-                                <a href="#">Datatables</a>
+                                <a href="./?controller=user&action=index">List Users</a>
                             </li>
                         </ul>
+                    </div>
+                    <div class="row row-card-no-pd">
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="flaticon-user-5 text-warning"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category">Admin</p>
+                                                <h4 class="card-title"><?= $result->numberOfUsers('Admin') ?></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body ">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="flaticon-user text-success"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category">Leader</p>
+                                                <h4 class="card-title"><?= $result->numberOfUsers('Leader') ?></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="flaticon-users text-danger"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category">Member</p>
+                                                <h4 class="card-title"><?= $result->numberOfUsers('Member') ?></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <div class="icon-big text-center">
+                                                <i class="flaticon-user-2 text-primary"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-stats">
+                                            <div class="numbers">
+                                                <p class="card-category">Toltal</p>
+                                                <h4 class="card-title">
+                                                <?= 
+                                                    $result->numberOfUsers('Admin') 
+                                                    + $result->numberOfUsers('Leader') 
+                                                    + $result->numberOfUsers('Member') 
+                                                    + $result->numberOfUsers('Free Member');
+                                                ?>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -67,13 +152,13 @@ $result = new UserController;
                                                     $username   = addslashes($username);
                                                     $password   = strip_tags($password);
                                                     if ($username == "" || $password == "" || !isset($password) || !isset($username)) {
-                                                        echo '<script>alert("Please enter full information!");</script>';
+                                                        echo '<script>alert("Please enter full information!")</script>';
                                                     } else {
                                                         $password   = md5(addslashes($password));
                                                         if ($result->creatUser($username, $password, $name, $level)) {
-                                                            echo '<script>alert("Success!");</script>';
+                                                            echo '<script>alert("Success!")</script>';
                                                         } else {
-                                                            echo '<script>alert("Username already exists!");</script>';
+                                                            echo '<script>alert("Username already exists!")</script>';
                                                         }
                                                     }
                                                 }
@@ -334,7 +419,7 @@ $result = new UserController;
 
                     });
 
-                    $('.btn.btn-link.btn-primary.btn-lg').click(function(){
+                    $('.btn.btn-link.btn-primary.btn-lg').click(function() {
                         let element = $(this).parent().parent().parent();
                         let name = element.find('.name_0').text();
                         let username = element.find('.username_0').text();
@@ -345,31 +430,6 @@ $result = new UserController;
                     });
                 });
             </script>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="pull-left">
-                        <ul class="nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.themekita.com">
-                                    ThemeKita
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Help
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    Licenses
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright ml-auto">
-                        2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a>
-                    </div>
-                </div>
-            </footer>
+        <?php require_once "./Views/admin/templates/main-footer.php" ?>
         </div>
     </div>
