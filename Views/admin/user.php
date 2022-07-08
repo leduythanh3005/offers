@@ -149,10 +149,10 @@ $result = new UserController;
                                                     $username   = addslashes($username);
                                                     $password   = strip_tags($password);
                                                     if ($password == "" || !isset($password)) {
-                                                        echo '<script>alert("Please enter full information!");</script>';
+                                                        echo '<script>alert("Vui lòng điền mật khẩu");</script>';
                                                     } else {
                                                         $password   = md5(addslashes($password));
-                                                        if ($result->creatUser($username, $password, $name, $level)) {
+                                                        if ($result->updateRow($username, $password, $name, $level)) {
                                                             echo '<script>alert("Success!");</script>';
                                                         } else {
                                                             echo '<script>alert("Username already exists!");</script>';
