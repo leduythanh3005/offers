@@ -25,7 +25,10 @@ class UserModel extends BaseModel{
             return false;
         }else{
             $amountArr      = [
-                'username' => $username
+                'username' => $username,
+                'daily_earnings' => 0,
+                'weekly_earnings' => 0,
+                'monthly_earnings' => 0
             ];
             $this->baseModel->setValue($amountArr,$this->amountTable);
             return $this->baseModel->setValue($array,$this->table);

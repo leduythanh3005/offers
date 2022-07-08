@@ -2,6 +2,7 @@
 if ($_SESSION['username'] != 'admin') {
     header("Location: ./?controller=login&action=index");
 }
+$result = new UserController;
 ?>
 
 <body data-background-color="dark">
@@ -13,15 +14,37 @@ if ($_SESSION['username'] != 'admin') {
         <div class="main-panel">
             <div class="content">
                 <div class="page-inner">
+                    <div class="page-header">
+                        <h4 class="page-title">DataTables.Net</h4>
+                        <ul class="breadcrumbs">
+                            <li class="nav-home">
+                                <a href="#">
+                                    <i class="flaticon-home"></i>
+                                </a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Tables</a>
+                            </li>
+                            <li class="separator">
+                                <i class="flaticon-right-arrow"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Datatables</a>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">
-                                        <h4 class="card-title">Add Row</h4>
+                                        <h4 class="card-title">Add User</h4>
                                         <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
                                             <i class="fa fa-plus"></i>
-                                            Add Row
+                                            Add User
                                         </button>
                                     </div>
                                 </div>
@@ -30,180 +53,238 @@ if ($_SESSION['username'] != 'admin') {
                                     <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
+                                                <?php
+                                                if (isset($_POST["submit"])) {
+                                                    $username   = $_POST["username"];
+                                                    $password   = $_POST["password"];
+                                                    $name       = $_POST["name"];
+                                                    $level      = $_POST["level"];
+                                                    $name       = strip_tags($name);
+                                                    $name       = addslashes($name);
+                                                    $level      = strip_tags($level);
+                                                    $level      = addslashes($level);
+                                                    $username   = strip_tags($username);
+                                                    $username   = addslashes($username);
+                                                    $password   = strip_tags($password);
+                                                    if ($username == "" || $password == "" || !isset($password) || !isset($username)) {
+                                                        echo '<script>alert("Please enter full information!");</script>';
+                                                    } else {
+                                                        $password   = md5(addslashes($password));
+                                                        if ($result->creatUser($username, $password, $name, $level)) {
+                                                            echo '<script>alert("Success!");</script>';
+                                                        } else {
+                                                            echo '<script>alert("Username already exists!");</script>';
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                                 <div class="modal-header no-bd">
                                                     <h5 class="modal-title">
                                                         <span class="fw-mediumbold">
-                                                            New</span>
+                                                            ADD</span>
                                                         <span class="fw-light">
-                                                            Row
+                                                            USER
                                                         </span>
                                                     </h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
+                                                        <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p class="small">Create a new row using this form, make sure you fill them all</p>
-                                                    <form>
+                                                    <form method="POST">
                                                         <div class="row">
-                                                            <div class="col-sm-12">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group form-group-default">
-                                                                    <label>Name</label>
-                                                                    <input id="addName" type="text" class="form-control" placeholder="fill name">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 pr-0">
-                                                                <div class="form-group form-group-default">
-                                                                    <label>Position</label>
-                                                                    <input id="addPosition" type="text" class="form-control" placeholder="fill position">
+                                                                    <label>Username</label>
+                                                                    <input type="text" class="form-control" placeholder="Username" name="username">
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group form-group-default">
-                                                                    <label>Office</label>
-                                                                    <input id="addOffice" type="text" class="form-control" placeholder="fill office">
+                                                                    <label>Name</label>
+                                                                    <input name="name" type="text" class="form-control" placeholder="Name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Level</label>
+                                                                    <select class="form-control form-control" id="defaultSelect" name="level">
+                                                                        <option>Admin</option>
+                                                                        <option>Leader</option>
+                                                                        <option>Member</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Password</label>
+                                                                    <input name="password" type="password" class="form-control" placeholder="Password">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div class="modal-footer no-bd">
+                                                            <button name="submit" type="submit" class="btn btn-primary">Add</button>
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                        </div>
                                                     </form>
                                                 </div>
-                                                <div class="modal-footer no-bd">
-                                                    <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="addRowModal2" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <?php
+                                                if (isset($_POST["submit_update"])) {
+                                                    $username   = $_POST["username_update"];
+                                                    $password   = $_POST["password_update"];
+                                                    $name       = $_POST["name_update"];
+                                                    $level      = $_POST["level_update"];
+                                                    $name       = strip_tags($name);
+                                                    $name       = addslashes($name);
+                                                    $level      = strip_tags($level);
+                                                    $level      = addslashes($level);
+                                                    $username   = strip_tags($username);
+                                                    $username   = addslashes($username);
+                                                    $password   = strip_tags($password);
+                                                    if ($username == "" || $password == "" || !isset($password) || !isset($username)) {
+                                                        echo '<script>alert("Please enter full information!");</script>';
+                                                    } else {
+                                                        $password   = md5(addslashes($password));
+                                                        if ($result->creatUser($username, $password, $name, $level)) {
+                                                            echo '<script>alert("Success!");</script>';
+                                                        } else {
+                                                            echo '<script>alert("Username already exists!");</script>';
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                                <div class="modal-header no-bd">
+                                                    <h5 class="modal-title">
+                                                        <span class="fw-mediumbold">
+                                                            EDIT</span>
+                                                        <span class="fw-light">
+                                                            USER
+                                                        </span>
+                                                    </h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form method="POST">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Username</label>
+                                                                    <input type="text" class="form-control username" placeholder="Username" name="name_update">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Name</label>
+                                                                    <input name="name_update" type="text" class="form-control name" placeholder="Name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Level</label>
+                                                                    <select class="form-control form-control level" id="defaultSelect" name="level_update">
+                                                                        <option>Admin</option>
+                                                                        <option>Leader</option>
+                                                                        <option>Member</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group form-group-default">
+                                                                    <label>Password</label>
+                                                                    <input name="password_update" type="password" class="form-control" placeholder="Password">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer no-bd">
+                                                            <button name="submit_update" type="submit" class="btn btn-primary">Update</button>
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-6">
-                                                    <div class="dataTables_length" id="add-row_length"><label>Show <select name="add-row_length" aria-controls="add-row" class="form-control form-control-sm">
-                                                                <option value="10">10</option>
-                                                                <option value="25">25</option>
-                                                                <option value="50">50</option>
-                                                                <option value="100">100</option>
-                                                            </select> entries</label></div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-6">
-                                                    <div id="add-row_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="add-row"></label></div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
-                                                        <thead>
-                                                            <tr role="row">
-                                                                <th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 359.125px;">Name</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 523.891px;">Position</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 305.641px;">Office</th>
-                                                                <th style="width: 122.344px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tfoot>
-                                                            <tr>
-                                                                <th rowspan="1" colspan="1">Name</th>
-                                                                <th rowspan="1" colspan="1">Position</th>
-                                                                <th rowspan="1" colspan="1">Office</th>
-                                                                <th rowspan="1" colspan="1">Action</th>
-                                                            </tr>
-                                                        </tfoot>
-                                                        <tbody>
-                                                            <tr role="row" class="odd">
-                                                                <td class="sorting_1">Airi Satou</td>
-                                                                <td>Accountant</td>
-                                                                <td>Tokyo</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr role="row" class="even">
-                                                                <td class="sorting_1">Ashton Cox</td>
-                                                                <td>Junior Technical Author</td>
-                                                                <td>San Francisco</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr role="row" class="odd">
-                                                                <td class="sorting_1">Brielle Williamson</td>
-                                                                <td>Integration Specialist</td>
-                                                                <td>New York</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr role="row" class="even">
-                                                                <td class="sorting_1">Cedric Kelly</td>
-                                                                <td>Senior Javascript Developer</td>
-                                                                <td>Edinburgh</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr role="row" class="odd">
-                                                                <td class="sorting_1">Colleen Hurst</td>
-                                                                <td>Javascript Developer</td>
-                                                                <td>San Francisco</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-5">
-                                                    <div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">Showing 1 to 5 of 10 entries</div>
-                                                </div>
-                                                <div class="col-sm-12 col-md-7">
-                                                    <div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
-                                                        <ul class="pagination">
-                                                            <li class="paginate_button page-item previous disabled" id="add-row_previous"><a href="#" aria-controls="add-row" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                                            <li class="paginate_button page-item active"><a href="#" aria-controls="add-row" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                                            <li class="paginate_button page-item "><a href="#" aria-controls="add-row" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                                            <li class="paginate_button page-item next" id="add-row_next"><a href="#" aria-controls="add-row" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <table id="add-row" class="display table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Username</th>
+                                                    <th>Level</th>
+                                                    <th>Group</th>
+                                                    <th>Daily Earnings</th>
+                                                    <th>Weekly Earnings</th>
+                                                    <th>Monthly Earnings</th>
+                                                    <th style="width: 10%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Name</th>
+                                                    <th>Username</th>
+                                                    <th>Level</th>
+                                                    <th>Group</th>
+                                                    <th>Daily Earnings</th>
+                                                    <th>Weekly Earnings</th>
+                                                    <th>Monthly Earnings</th>
+                                                    <th style="width: 10%">Action</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                <?php
+                                                $array = ['id', 'name', 'username', 'level', 'group_name'];
+                                                foreach ($result->getListUser($array) as $value) {
+                                                    if ($value['username'] != 'admin') {
+                                                        switch ($value['level']) {
+                                                            case 1:
+                                                                $level = 'Admin';
+                                                                break;
+                                                            case 2:
+                                                                $level = 'Leader';
+                                                                break;
+                                                            case 3:
+                                                                $level = 'Member';
+                                                                break;
+                                                            default:
+                                                                $level = 'Free Member';
+                                                                break;
+                                                        }
+                                                ?>
+                                                        <tr>
+                                                            <td class=py-0><?= $value['id'] ?></td>
+                                                            <td class="name_0"><?= $value['name'] ?></td>
+                                                            <td class="username_0"><?= $value['username'] ?></td>
+                                                            <td class="level_0"><?= $level ?></td>
+                                                            <td><?= $value['group_name'] ?></td>
+                                                            <td><?= $result->getValueAmountTable('daily_earnings', $value['username']) ?></td>
+                                                            <td><?= $result->getValueAmountTable('weekly_earnings', $value['username']) ?></td>
+                                                            <td><?= $result->getValueAmountTable('monthly_earnings', $value['username']) ?></td>
+                                                            <td>
+                                                                <div class="form-button-action">
+                                                                    <button type="button" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task" data-toggle="modal" data-target="#addRowModal2">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </button>
+                                                                    <a type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove" href="?controller=user&action=delRow&username=<?= $value['username'] ?>"><i class="fa fa-times"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -211,6 +292,73 @@ if ($_SESSION['username'] != 'admin') {
                     </div>
                 </div>
             </div>
+            <script>
+                $(document).ready(function() {
+                    $('#basic-datatables').DataTable({});
+
+                    $('#multi-filter-select').DataTable({
+                        "pageLength": 5,
+                        initComplete: function() {
+                            this.api().columns().every(function() {
+                                var column = this;
+                                var select = $('<select class="form-control"><option value=""></option></select>')
+                                    .appendTo($(column.footer()).empty())
+                                    .on('change', function() {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+
+                                        column
+                                            .search(val ? '^' + val + '$' : '', true, false)
+                                            .draw();
+                                    });
+
+                                column.data().unique().sort().each(function(d, j) {
+                                    select.append('<option value="' + d + '">' + d + '</option>')
+                                });
+                            });
+                        }
+                    });
+
+                    // Add Row
+                    $('#add-row').DataTable({
+                        "pageLength": 5,
+                    });
+
+                    var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+                    $('#addRowButton').click(function() {
+                        $('#add-row').dataTable().fnAddData([
+                            $("#addName").val(),
+                            $("#addPosition").val(),
+                            $("#addOffice").val(),
+                            action
+                        ]);
+                        $('#addRowModal').modal('hide');
+
+                    });
+                    $('#addRowButton2').click(function() {
+                        $('#add-row2').dataTable().fnAddData([
+                            $("#addName2").val(),
+                            $("#addPosition2").val(),
+                            $("#addOffice2").val(),
+                            action
+                        ]);
+                        $('#addRowModal2').modal('hide');
+
+                    });
+
+                    $('.btn.btn-link.btn-primary.btn-lg').click(function(){
+                        let element = $(this).parent().parent().parent();
+                        let name = element.find('.name_0').text();
+                        let username = element.find('.username_0').text();
+                        let level = element.find('.level_0').text();
+                        $('#addRowModal2 .form-control.username').val(username)
+                        $('#addRowModal2 .form-control.name').val(name)
+                        $('#addRowModal2 .form-control.form-control.level').val(level)
+                    });
+                });
+            </script>
             <footer class="footer">
                 <div class="container-fluid">
                     <nav class="pull-left">
@@ -239,4 +387,3 @@ if ($_SESSION['username'] != 'admin') {
             </footer>
         </div>
     </div>
-    
