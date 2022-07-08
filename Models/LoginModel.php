@@ -13,16 +13,19 @@ class LoginModel extends BaseModel{
     public function submit(string $username,string $password)
     {
         $table = self::TABLE_USERS;
+        unset($_SESSION["favicon"]);
+        unset($_SESSION["title"]);
         try {
             $sql = "SELECT * FROM $table";
             if (mysqli_query($this->connect, $sql)) {
                 return $this->checkLogin($username, $password ,$table);
             }
-        } catch (\Throwable $th) {
             $this->createTableUser();
             $this->createTableAmount();
             $this->createTableSetting();
             return $this->checkLogin($username, $password ,$table);
+        } catch (\Throwable $th) {
+            throw $th;
         }
     }
 

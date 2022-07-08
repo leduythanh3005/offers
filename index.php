@@ -11,6 +11,8 @@ if(empty(['controller']) || empty($_GET['action'])){
     $theme  = $baseModel->settingTheme('site_theme');
     $result->requireTheme($theme);
 }else{
+    $_SESSION['favicon'] = "./uploads/icon.ico";
+    $_SESSION['title']    = "Thành Aloha";
     $controller_lower   =   strtolower($_GET['controller']);
     $controller         =   ucfirst($controller_lower) . "Controller";
     $action             =   strtolower($_GET['action']);

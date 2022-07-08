@@ -1,12 +1,20 @@
 <?php 
 	$setting = new BaseModel;
-	try {
-		$title = $setting->settingTheme('site_title');
-		$favicon = $setting->settingTheme('site_favicon');
-	} catch (\Throwable $th) {
-		$title = "Thanh Aloha";
-		$favicon = "./uploads/icon.ico";
-	};
+	if(!isset($_SESSION['favicon'])){
+		try {
+			if($setting->settingTheme('site_title')){
+				$title = $setting->settingTheme('site_title');
+			}
+			if($setting->settingTheme('site_favicon')){
+				$favicon = $setting->settingTheme('site_favicon');
+			}
+		} catch (\Throwable $th) {
+			throw $th;
+		};
+	}else{
+		$favicon = $_SESSION['favicon'];
+		$title = $_SESSION['title'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">

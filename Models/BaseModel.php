@@ -14,7 +14,8 @@ class BaseModel extends Db
     {
         $this->connect = $this->connectDb();
     }
-    public function getValue(array $array, $table)
+
+    protected function getValue(array $array, $table)
     {
         $flattened = $array;
         array_walk($flattened, function(&$value, $key) {
@@ -32,7 +33,7 @@ class BaseModel extends Db
         return false;
     }
     
-    public function setValue(array $array,string $table)
+    protected function setValue(array $array,string $table)
     {
         $result = false;
         $ValuesArr = $array;
@@ -52,7 +53,7 @@ class BaseModel extends Db
         return $result;
     }
 
-    public function updateValue(array $array ,string $table,array $where)
+    protected function updateValue(array $array ,string $table,array $where)
     {
         $result = false;
         $whereArr = $where;
@@ -76,7 +77,7 @@ class BaseModel extends Db
         return $result;
     }
 
-    public function delValue(array $array,string $table)
+    protected function delValue(array $array,string $table)
     {
         $result = false;
         try {
@@ -92,7 +93,7 @@ class BaseModel extends Db
         return $result;
     }
 
-    public function getAValue(string $str,string $table, array $where)
+    protected function getAValue(string $str,string $table, array $where)
     {
         try {
             foreach($where as $key => $value){
