@@ -95,7 +95,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="overlay-sidebar.html">
+                                <a href="./?controller=group&action=index">
                                     <span class="sub-item">List Groups</span>
                                 </a>
                             </li>
