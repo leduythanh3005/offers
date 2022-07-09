@@ -7,6 +7,7 @@ class BaseModel extends Db
     const TABLE_USERS       = 'table_users';
     const TABLE_AMOUNT      = 'table_amount';
     const TABLE_SETTING     = 'table_setting';
+    const TABLE_GROUP       = 'table_group';
 
     public $connect;
 

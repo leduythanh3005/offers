@@ -12,6 +12,8 @@ class UserController extends BaseController
 
     public function creatUser(string $username,string $password,string $name,string $level)
     {
+        $username = trim($username);
+        $name = trim($name);
         $array = [
             'name' => $name,
             'username' => $username,

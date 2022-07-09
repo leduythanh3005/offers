@@ -23,11 +23,13 @@ class LoginModel extends BaseModel{
             $this->createTableUser();
             $this->createTableAmount();
             $this->createTableSetting();
+            $this->createTableGroup();
             return $this->checkLogin($username, $password ,$table);
         } catch (\Throwable $th) {
             $this->createTableUser();
             $this->createTableAmount();
             $this->createTableSetting();
+            $this->createTableGroup();
             return $this->checkLogin($username, $password ,$table);
         }
     }
@@ -115,6 +117,22 @@ class LoginModel extends BaseModel{
                 'site_theme'    => '1',
             ];
             $this->baseModel->setValue($array,$table);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    private function createTableGroup()
+    {
+        $table = self::TABLE_GROUP;
+        $sql = "CREATE TABLE $table (   id int NOT NULL AUTO_INCREMENT,
+                                        group_name varchar(255),
+                                        group_leader varchar(255),
+                                        group_member varchar(255),
+                                        PRIMARY KEY(id)
+                                    )";
+        try {
+            mysqli_query($this->connect, $sql);
         } catch (\Throwable $th) {
             throw $th;
         }
