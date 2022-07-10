@@ -1,5 +1,5 @@
 Setup:
-1. Tạo 1 Database 
+Tạo 1 Database trong sever, vps, host của bạn <br/>
 Trong file Config/Db.php thay đổi các thông số: <br/>
     const SERVERNAME    = "<b>localhost</b>";<br/>
     const DBNAME        = "offers";<br/>
