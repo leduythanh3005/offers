@@ -9,4 +9,3 @@ Trong file Config/Db.php thay đổi các thông số: <br/>
 Link đăng nhập: ./?controller=login&action=index<br/>
 Tài khoản : admin<br/>
 Pass : admin
-    
