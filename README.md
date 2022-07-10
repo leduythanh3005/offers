@@ -1,7 +1,7 @@
 Setup:
 1. Tạo 1 Database 
 Trong file Config/Db.php thay đổi các thông số: <br/>
-    const SERVERNAME    = "<b style="color:red">localhost</b>";<br/>
+    const SERVERNAME    = "<b>localhost</b>";<br/>
     const DBNAME        = "offers";<br/>
     const USERNAME      = "root";<br/>
     const PASS          = "";<br/>
